@@ -9,7 +9,7 @@ import { HealthModule } from './Healt/health.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio', {
+    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/comentarios-db', {
       retryWrites: true,
       w: 'majority',
     }),
