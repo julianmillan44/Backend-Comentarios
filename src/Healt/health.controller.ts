@@ -1,27 +1,21 @@
 import { Controller, Get } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { HealthService } from '.Healt/health.service';
 
-@Controller('api/health')
+@ApiTags('Health')
+@Controller('health')
 export class HealthController {
-  constructor(
-    @InjectConnection() private readonly connection: Connection,
-  ) {}
+  constructor(private readonly healthService: HealthService) {}
 
   @Get()
-  async checkHealth() {
-    const dbStatus = this.connection.readyState === 1 ? 'connected' : 'disconnected';
-    
-    return {
-      status: 'ok',
-      timestamp: new Date().toISOString(),
-      database: {
-        status: dbStatus,
-        host: this.connection.host,
-        name: this.connection.name,
-      },
-      environment: process.env.NODE_ENV,
-      uptime: process.uptime(),
-    };
+  @ApiResponse({ status: 200, description: 'Health check endpoint' })
+  check() {
+    return this.healthService.check();
+  }
+
+  @Get('database')
+  @ApiResponse({ status: 200, description: 'Database health check' })
+  checkDatabase() {
+    return this.healthService.checkDatabase();
   }
 }
