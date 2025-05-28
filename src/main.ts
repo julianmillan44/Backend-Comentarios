@@ -14,7 +14,6 @@ async function bootstrap() {
     origin: [
       'http://localhost:4200',
       'http://localhost:3000',
-      'http://localhost:3001', 
       'http://localhost:80',
       'http://localhost',
     ],
