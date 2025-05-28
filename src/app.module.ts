@@ -9,18 +9,20 @@ import { HealthModule } from './Healt/health.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/comentarios-db', {
-      retryWrites: true,
-      w: 'majority',
-    }),
+    MongooseModule.forRoot(
+      process.env.MONGODB_URI || 'mongodb+srv://julianocampomillan19:b7fuLqCRHQcFh4sM@byteclean.d5hibcf.mongodb.net/comentarios-db?retryWrites=true&w=majority',
+      {
+        // Configuraciones específicas para MongoDB Atlas
+        retryWrites: true,
+        w: 'majority',
+      }
+    ),
     ProjectsModule,
     CommentsModule,
     ContactModule,
     HealthModule,
-    
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-
